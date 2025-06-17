@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora TDEE + IMC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="font-family: 'Roboto', sans-serif;">
+  <main class="container">
+    <h1>🧮 Macro Master</h1>
+
+    <section class="intro">
+      <p>
+        Esta calculadora estima o <strong>TDEE</strong> (Gasto Energético Diário Total),
+        o <strong>IMC</strong> (Índice de Massa Corporal), e seu <strong>peso ideal</strong>.
+        Também permite ajustar seus objetivos (cutting, bulking ou manutenção) e calcular seus <strong>macronutrientes</strong> ideais.
+      </p>
+    </section>
+
+    <form id="health-form">
+      <fieldset>
+        <legend>📋 Dados Pessoais</legend>
+
+        <label for="age">Idade:</label>
+        <input type="number" id="age" required />
+
+        <label for="sex">Sexo:</label>
+        <select id="sex" required>
+          <option value="male">Masculino</option>
+          <option value="female">Feminino</option>
+        </select>
+
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" step="0.1" required />
+
+        <label for="height">Altura (cm):</label>
+        <input type="number" id="height" step="0.1" required />
+
+        <label for="activity">Nível de Atividade:</label>
+        <select id="activity" required>
+          <option value="1.2">Sedentário</option>
+          <option value="1.375">Levemente ativo</option>
+          <option value="1.55">Moderadamente ativo</option>
+          <option value="1.725">Muito ativo</option>
+          <option value="1.9">Extremamente ativo</option>
+        </select>
+      </fieldset>
+
+      <button type="submit">Calcular</button>
+    </form>
+
+    <section id="health-results" style="display:none;">
+      <h2>📊 Resultados de Saúde</h2>
+
+      <ul>
+        <li><strong>TDEE:</strong> <span id="tdee-result"></span> kcal</li>
+        <li><strong>IMC:</strong> <span id="bmi-result"></span> (<span id="bmi-class"></span>)</li>
+        <li><strong>Peso Ideal:</strong> <span id="ideal-weight"></span> kg</li>
+      </ul>
+
+      <h3>🎯 Objetivo</h3>
+      <form id="goal-form">
+        <label for="goal">Escolha seu objetivo:</label>
+        <select id="goal" required>
+          <option value="maintain">Manutenção</option>
+          <option value="cut">Cutting (Perder gordura)</option>
+          <option value="bulk">Bulking (Ganhar massa)</option>
+        </select>
+
+        <label for="adjustment">Ajuste calórico (%):</label>
+        <input type="range" id="adjustment" min="-30" max="30" value="0" />
+        <span id="adjustment-value">0%</span>
+
+        <button type="submit">Aplicar Ajuste</button>
+      </form>
+
+      <p><strong>Calorias ajustadas:</strong> <span id="adjusted-calories"></span> kcal</p>
+
+      <h3>🍽️ Macronutrientes</h3>
+      <form id="macros-form">
+        <label>Proteínas (%):</label>
+        <input type="number" id="protein" value="30" min="0" max="100" required />
+
+        <label>Carboidratos (%):</label>
+        <input type="number" id="carbs" value="50" min="0" max="100" required />
+
+        <label>Gorduras (%):</label>
+        <input type="number" id="fats" value="20" min="0" max="100" required />
+
+        <button type="submit">Calcular Macros</button>
+      </form>
+
+      <section id="macros-result" style="display:none;">
+        <ul>
+          <li>Proteínas: <span id="protein-result"></span> g</li>
+          <li>Carboidratos: <span id="carbs-result"></span> g</li>
+          <li>Gorduras: <span id="fats-result"></span> g</li>
+        </ul>
+        <canvas id="macroChart" style="max-width: 400px;"></canvas>
+      </section>
+
+      <h3>📘 Dicas Rápidas</h3>
+      <ul>
+        <li>IMC entre 18.5 e 24.9 é considerado saudável.</li>
+        <li>Cutting = -15 a -25% do TDEE | Bulking = +10 a +20%</li>
+        <li>1g de proteína = 4 kcal | 1g de carbo = 4 kcal | 1g de gordura = 9 kcal</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
