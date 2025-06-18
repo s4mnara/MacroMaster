@@ -1,0 +1,178 @@
+/* Estilos Globais */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #F0FFF0; /* Verde Claro - quase branco */
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Container Principal */
+.container {
+  background-color: #FFFFFF; /* Branco */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Títulos */
+h1 {
+  color: #20B2AA; /* Verde Paraíso */
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5em;
+}
+
+h2 {
+  color: #20B2AA; /* Verde Paraíso */
+  border-bottom: 2px solid #E0FFFF; /* Azul Bebê */
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #20B2AA; /* Verde Paraíso */
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* Seções de Introdução e Resultados */
+.intro p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.intro strong {
+  color: #20B2AA; /* Verde Paraíso */
+}
+
+/* Formulários e Fieldsets */
+fieldset {
+  border: 1px solid #E0FFFF; /* Azul Bebê */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+legend {
+  color: #20B2AA; /* Verde Paraíso */
+  font-weight: bold;
+  padding: 0 10px;
+  font-size: 1.2em;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+input[type="number"],
+select {
+  width: calc(100% - 22px); /* Ajuste para padding e border */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ADD8E6; /* Azul Claro */
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Botões */
+button {
+  background-color: #20B2AA; /* Verde Paraíso */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1A8F87; /* Verde mais escuro no hover */
+}
+
+/* Listas de Resultados */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+ul li strong {
+  color: #20B2AA; /* Verde Paraíso */
+}
+
+/* Ajuste de Valor do Range */
+#adjustment-value {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+  color: #20B2AA; /* Verde Paraíso */
+}
+
+/* Gráfico de Macros */
+#macroChart {
+  margin-top: 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  input[type="number"],
+  select,
+  button {
+    font-size: 0.9em;
+  }
+}
