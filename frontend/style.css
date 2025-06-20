@@ -18,7 +18,7 @@ body {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 80vw;
   width: 100%;
   box-sizing: border-box;
 }
@@ -28,7 +28,7 @@ h1 {
   color: #20B2AA; /* Verde Paraíso */
   text-align: center;
   margin-bottom: 30px;
-  font-size: 2.5em;
+  font-size: 3.5em;
 }
 
 h2 {
@@ -139,7 +139,11 @@ ul li strong {
   margin-top: 20px;
   max-width: 100%;
   height: auto;
+  display: block;
+  margin: 0 auto;
 }
+
+
 
 /* Responsividade */
 @media (max-width: 768px) {
