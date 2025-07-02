@@ -116,15 +116,20 @@ document.addEventListener("DOMContentLoaded", function () {
           backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
         }]
       },
-     options: {
+    options: {
   responsive: true,
   maintainAspectRatio: false,
+  animation: {
+    animateScale: true,     // anima a escala do gráfico (expansão)
+    animateRotate: true     // anima a rotação dos arcos
+  },
   plugins: {
     legend: {
       position: "bottom"
     }
   }
 }
+
 
     });
   }
