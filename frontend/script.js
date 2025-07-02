@@ -116,14 +116,16 @@ document.addEventListener("DOMContentLoaded", function () {
           backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
         }]
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "bottom"
-          }
-        }
-      }
+     options: {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "bottom"
+    }
+  }
+}
+
     });
   }
 });
