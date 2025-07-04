@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Macro Master - TDEE & IMC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>🧮 Macro Master</h1>
+
+    <section class="intro">
+      <p>
+        Esta calculadora estima o <strong>TDEE</strong> (Gasto Energético Diário Total),
+        o <strong>IMC</strong> (Índice de Massa Corporal), e seu <strong>peso ideal</strong>.
+      </p>
+    </section>
+
+    <form id="health-form">
+      <fieldset>
+        <legend>📋 Dados Pessoais</legend>
+
+        <label for="age">Idade:</label>
+        <input type="number" id="age" required min="1" max="120" />
+
+        <label for="sex">Sexo:</label>
+        <select id="sex" required>
+          <option value="male">Masculino</option>
+          <option value="female">Feminino</option>
+        </select>
+
+        <label for="weight">Peso (kg):</label>
+        <input type="number" id="weight" step="0.1" required min="1" max="300" />
+
+        <label for="height">Altura (cm):</label>
+        <input type="number" id="height" step="0.1" required min="30" max="250" />
+
+        <label for="activity">Nível de Atividade:</label>
+        <select id="activity" required>
+          <option value="1.2">Sedentário</option>
+          <option value="1.375">Levemente ativo</option>
+          <option value="1.55">Moderadamente ativo</option>
+          <option value="1.725">Muito ativo</option>
+          <option value="1.9">Extremamente ativo</option>
+        </select>
+      </fieldset>
+
+      <button type="submit">Calcular</button>
+    </form>
+
+    <section id="health-results" style="display:none;">
+      <h2>📊 Resultados</h2>
+      <ul>
+        <li><strong>TDEE:</strong> <span id="tdee-result"></span> kcal</li>
+        <li><strong>IMC:</strong> <span id="bmi-result"></span> (<span id="bmi-class"></span>)</li>
+        <li><strong>Peso Ideal:</strong> <span id="ideal-weight"></span> kg</li>
+      </ul>
+
+      <button id="to-macros" class="btn">Ir para Metas e Macros</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

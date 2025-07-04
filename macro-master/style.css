@@ -1,0 +1,146 @@
+/* Estilos Globais */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #F0FFF0;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Container Principal */
+.container {
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 80vw;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Títulos */
+h1 {
+  color: #20B2AA;
+  margin-bottom: 30px;
+  font-size: 3.5em;
+}
+
+h2 {
+  color: #20B2AA;
+  border-bottom: 2px solid #E0FFFF;
+  padding-bottom: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.intro p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.intro strong {
+  color: #20B2AA;
+}
+
+/* Formulários */
+form {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  text-align: left;
+}
+
+fieldset {
+  border: 1px solid #E0FFFF;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+legend {
+  color: #20B2AA;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+input[type="number"],
+select,
+input[type="range"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ADD8E6;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+button, .btn {
+  background-color: #20B2AA;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1em;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  display: inline-block;
+}
+
+button:hover, .btn:hover {
+  background-color: #1A8F87;
+}
+
+/* Resultados */
+#health-results, #macros-result {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#health-results ul, #macros-result ul {
+  list-style: none;
+  padding: 0;
+  font-size: 1.2em;
+}
+
+#health-results ul li, #macros-result ul li {
+  margin-bottom: 10px;
+}
+
+/* Gráfico */
+.chart-container {
+  position: relative;
+  max-width: 500px;
+  margin: 20px auto 0 auto;
+  aspect-ratio: 2 / 1;
+}
+
+#macroChart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  form {
+    max-width: 90vw;
+  }
+}
