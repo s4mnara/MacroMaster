@@ -7,6 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+  :root {
+    --bg-url: url('assets/background22.jpg');
+  }
+</style>
+
 </head>
 <body>
   <main class="container">
@@ -25,11 +31,24 @@
         <label for="adjustment">Ajuste (%): <span id="adjustment-value">0%</span></label>
         <input type="range" id="adjustment" min="-50" max="50" value="0" />
       </fieldset>
-
+    <p style="max-width:600px; margin: 0 auto 30px; color:#555; text-align:center; font-size:1em;">
+  Ajuste suas calorias para perder gordura, ganhar massa ou manter o peso.  
+  Valores negativos indicam déficit calórico; positivos, superávit.
+</p>
       <button type="submit">Aplicar Ajuste</button>
     </form>
 
-    <p>Calorias ajustadas: <strong><span id="adjusted-calories"></span></strong></p>
+  <section id="adjusted-section" class="highlight-box">
+  <h2>🔥 Calorias Ajustadas</h2>
+  <p class="adjusted-text">
+    Sua nova meta calórica, com base no ajuste percentual definido, é:
+  </p>
+  <p class="adjusted-value">
+    <span id="adjusted-calories">0</span> kcal
+  </p>
+</section>
+
+
 
     <form id="macros-form">
       <fieldset>

@@ -1,34 +1,66 @@
-/* Estilos Globais */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 20px;
-  background-color: #F0FFF0;
-  color: #333;
+  padding: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  box-sizing: border-box;
+  align-items: center; /* CENTRALIZA verticalmente */
+  flex-direction: column; /* Empilha os elementos (boa prática) */
 }
 
-/* Container Principal */
+
+/* Imagem de fundo embaçada */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-url);
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
+  z-index: -3;
+}
+
+/* Camada verde clara translúcida */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(240, 255, 240, 0.5); /* Verde claro transparente */
+  z-index: -2;
+}
+
 .container {
+  position: relative;
   background-color: #FFFFFF;
-  padding: 30px;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 80vw;
-  width: 100%;
+  max-width: 1200px;
+  width: 95%;
+  margin: 60px 0;
   box-sizing: border-box;
-  text-align: center;
+  z-index: 1;
 }
+
+
 
 /* Títulos */
 h1 {
   color: #20B2AA;
   margin-bottom: 30px;
   font-size: 3.5em;
+  text-align: center;
 }
 
 h2 {
@@ -37,11 +69,13 @@ h2 {
   padding-bottom: 10px;
   margin-top: 40px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .intro p {
   line-height: 1.6;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .intro strong {
@@ -115,6 +149,7 @@ button:hover, .btn:hover {
   list-style: none;
   padding: 0;
   font-size: 1.2em;
+  text-align: center;
 }
 
 #health-results ul li, #macros-result ul li {
@@ -134,6 +169,49 @@ button:hover, .btn:hover {
   height: 100% !important;
   display: block;
 }
+#to-macros {
+  background-color: #E74C3C; /* Vermelho vibrante */
+  font-size: 1.3em;
+  padding: 16px 32px;
+  width: auto;
+  display: inline-block;
+  margin-top: 30px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#to-macros:hover {
+  background-color: #C0392B; /* Vermelho mais escuro no hover */
+  transform: scale(1.05);    /* Efeito de leve zoom */
+}
+.highlight-box {
+  text-align: center;
+  margin: 40px auto;
+  background-color: #FFF5F5; /* Vermelho bem claro */
+  border: 2px solid #E74C3C;
+  border-radius: 10px;
+  padding: 25px;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.highlight-box h2 {
+  color: #E74C3C;
+  margin-bottom: 10px;
+}
+
+.adjusted-text {
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.adjusted-value {
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #C0392B;
+}
+
 
 /* Responsividade */
 @media (max-width: 480px) {
