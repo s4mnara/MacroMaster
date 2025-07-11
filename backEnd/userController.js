@@ -8,3 +8,7 @@ function criarUsuario(req, res) {
         res.status(201).json({ id: userId, nome, email });
     });
 }
+
+module.exports = {
+    criarUsuario,
+};
