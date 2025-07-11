@@ -15,3 +15,15 @@ function registrarResultado(userId, resultado, callback) {
         callback(err);
     });
 }
+
+// Buscar histórico por usuário
+function buscarHistorico(userId, callback) {
+    const query = 'SELECT * FROM historico WHERE user_id = ? ORDER BY data_registro';
+    db.all(query, [userId], callback);
+}
+
+module.exports = {
+    criarUsuario,
+    registrarResultado,
+    buscarHistorico
+};
