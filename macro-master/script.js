@@ -122,6 +122,11 @@ document.addEventListener("DOMContentLoaded", function () {
       renderChart(proteinGrams, carbsGrams, fatsGrams);
     });
 
+    localStorage.setItem("macro_protein", proteinGrams);
+    localStorage.setItem("macro_carbs", carbsGrams);
+    localStorage.setItem("macro_fats", fatsGrams);
+
+
     function renderChart(protein, carbs, fats) {
       const ctx = document.getElementById("macroChart").getContext("2d");
       if (window.chartInstance) window.chartInstance.destroy();
@@ -150,3 +155,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
+//////////////////////////////////////////////////////PDF///////////////////////////////////////////////////////////////
+// Clonar o gráfico dentro do container do PDF
+const originalCanvas = document.getElementById("macroChart");
+const cloneCanvas = originalCanvas.cloneNode(true);
+document.getElementById("pdf-content").querySelector(".chart-container").appendChild(cloneCanvas);
+
+
+//Preencher dados PDF
+function preencherPDFCampos() {
+  const tdee = localStorage.getItem("tdee");
+  const peso = localStorage.getItem("weight");
+  const altura = localStorage.getItem("height");
+
+  const alturaM = altura / 100;
+  const imc = peso / (alturaM ** 2);
+  const pesoIdeal = 22 * alturaM ** 2;
+
+  // Classificação IMC
+  function getBmiClass(imc) {
+    if (imc < 18.5) return "Abaixo do peso";
+    if (imc < 24.9) return "Peso normal";
+    if (imc < 29.9) return "Sobrepeso";
+    if (imc < 34.9) return "Obesidade grau I";
+    if (imc < 39.9) return "Obesidade grau II";
+    return "Obesidade grau III";
+  }
+
+  document.getElementById("pdf-tdee").textContent = tdee;
+  document.getElementById("pdf-bmi").textContent = imc.toFixed(1);
+  document.getElementById("pdf-bmi-class").textContent = getBmiClass(imc);
+  document.getElementById("pdf-ideal-weight").textContent = Math.round(pesoIdeal);
+
+  document.getElementById("protein-result").textContent = localStorage.getItem("macro_protein") || "--";
+  document.getElementById("carbs-result").textContent = localStorage.getItem("macro_carbs") || "--";
+  document.getElementById("fats-result").textContent = localStorage.getItem("macro_fats") || "--";
+}
+
+// Função PDF
+function gerarPDF() {
+  preencherPDFCampos();
+
+  const elemento = document.getElementById("pdf-content");
+  setTimeout(() => {
+      html2pdf()
+        .set({
+          margin: 0.5,
+          filename: 'relatorio_macros.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true }, // useCORS ajuda com imagens externas
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+        })
+        .from(elemento)
+        .save();
+    }, 1500);
+  
+}

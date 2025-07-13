@@ -84,3 +84,43 @@
   <script src="script.js"></script>
 </body>
 </html>
+<!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
+<!-- Geração do pdf -->
+<div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+
+
+  <h2>📄 Relatório de Resultados</h2>
+
+  <!-- 🔹 TDEE -->
+  <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+
+  <!-- 🔹 IMC -->
+  <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
+
+  <!-- 🔹 Peso Ideal -->
+  <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
+
+  <!-- 🔹 Calorias Ajustadas -->
+  <p><strong>Calorias Ajustadas:</strong> <span id="adjusted-calories">--</span> kcal</p>
+
+  <!-- 🔹 Resultados dos Macros -->
+  <div id="macros-result" style="margin-top: 20px;">
+    <h3>Macronutrientes</h3>
+    <ul>
+      <li>Proteínas: <span id="protein-result">--</span> g</li>
+      <li>Carboidratos: <span id="carbs-result">--</span> g</li>
+      <li>Gorduras: <span id="fats-result">--</span> g</li>
+    </ul>
+
+    <div class="chart-container">
+      <canvas id="macroChart" width="400" height="400"></canvas>
+    </div>
+
+  </div>
+</div>
+
+
+<button type="button" onclick="gerarPDF()" class="button">📄 Baixar PDF</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
