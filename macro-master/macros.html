@@ -81,13 +81,13 @@
     </section>
   </main>
 
-  <script src="script.js"></script>
-</body>
-</html>
-<!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
+  <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
 <!-- Geração do pdf -->
 <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
 
+  <h1 style="text-align:center; color:#333; font-family:'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px;">
+  <span style="color:#2196f3;">Macro Master</span> 🧮
+  </h1>
 
   <h2>📄 Relatório de Resultados</h2>
 
@@ -113,7 +113,7 @@
     </ul>
 
     <div class="chart-container">
-      <canvas id="macroChart" width="400" height="400"></canvas>
+      <canvas id="pdfChart" width="400" height="400"></canvas>
     </div>
 
   </div>
@@ -123,4 +123,10 @@
 <button type="button" onclick="gerarPDF()" class="button">📄 Baixar PDF</button>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
 

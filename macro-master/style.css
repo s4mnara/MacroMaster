@@ -222,3 +222,11 @@ button:hover, .btn:hover {
     max-width: 90vw;
   }
 }
+
+#pdf-content .chart-container {
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  page-break-inside: avoid;
+}
+

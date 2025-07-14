@@ -120,12 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("macros-result").style.display = "block";
 
       renderChart(proteinGrams, carbsGrams, fatsGrams);
+      localStorage.setItem("macro_protein", proteinGrams);
+      localStorage.setItem("macro_carbs", carbsGrams);
+      localStorage.setItem("macro_fats", fatsGrams);
+
     });
 
-    localStorage.setItem("macro_protein", proteinGrams);
-    localStorage.setItem("macro_carbs", carbsGrams);
-    localStorage.setItem("macro_fats", fatsGrams);
-
+    
 
     function renderChart(protein, carbs, fats) {
       const ctx = document.getElementById("macroChart").getContext("2d");
@@ -156,6 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 //////////////////////////////////////////////////////PDF///////////////////////////////////////////////////////////////
+
+
 // Clonar o gráfico dentro do container do PDF
 const originalCanvas = document.getElementById("macroChart");
 const cloneCanvas = originalCanvas.cloneNode(true);
@@ -192,9 +195,44 @@ function preencherPDFCampos() {
   document.getElementById("fats-result").textContent = localStorage.getItem("macro_fats") || "--";
 }
 
+//Criar Gráfico para o PDF
+function renderPDFChart() {
+  const container = document.querySelector("#pdf-content .chart-container");
+  container.innerHTML = ""; // Limpa gráfico anterior
+
+  const canvas = document.createElement("canvas");
+  canvas.id = "pdfChart";
+  canvas.width = 300;
+  canvas.height = 300;
+  container.appendChild(canvas);
+
+  const protein = parseInt(localStorage.getItem("macro_protein")) || 0;
+  const carbs = parseInt(localStorage.getItem("macro_carbs")) || 0;
+  const fats = parseInt(localStorage.getItem("macro_fats")) || 0;
+
+  new Chart(canvas.getContext("2d"), {
+    type: "doughnut",
+    data: {
+      labels: ["Proteínas", "Carboidratos", "Gorduras"],
+      datasets: [{
+        data: [protein, carbs, fats],
+        backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
+      }]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: "bottom" }
+      }
+    }
+  });
+}
+
 // Função PDF
 function gerarPDF() {
   preencherPDFCampos();
+  renderPDFChart();
 
   const elemento = document.getElementById("pdf-content");
   setTimeout(() => {
@@ -203,7 +241,7 @@ function gerarPDF() {
           margin: 0.5,
           filename: 'relatorio_macros.pdf',
           image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true }, // useCORS ajuda com imagens externas
+          html2canvas: { scale: 2 },
           jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
         })
         .from(elemento)
