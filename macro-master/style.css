@@ -141,7 +141,13 @@ button:hover, .btn:hover {
 
 /* Classe especial para botão vermelho */
 .btn-danger {
-  background-color: crimson;
+ background-color: crimson;
+  width: 400px;         /* largura mínima suficiente para o conteúdo */
+  padding: 14px 32px;         /* mais espaço interno */
+  margin: 24px auto;          /* centraliza */
+  display: block;
+  font-size: 1.1em;           /* garante tamanho da fonte */
+  border-radius: 8px; 
 
 }
 
