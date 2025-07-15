@@ -81,49 +81,48 @@
       </div>
     </section>
 
-    <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
-<!-- Geração do pdf -->
-<div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+        <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
+    <!-- Geração do pdf -->
+    <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
 
-  <h1 style="text-align:center; color:#333; font-family:'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px;">
-  <span style="color:#2196f3;">Macro Master</span> 🧮
-  </h1>
+      <h1 style="text-align:center; color:#333; font-family:'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px;">
+      <span style="color:#2196f3;">Macro Master</span> 🧮
+      </h1>
 
-  <h2>📄 Relatório de Resultados</h2>
+      <h2>📄 Relatório de Resultados</h2>
 
-  <!-- 🔹 TDEE -->
-  <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+      <!-- 🔹 TDEE -->
+      <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
 
-  <!-- 🔹 IMC -->
-  <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
+      <!-- 🔹 IMC -->
+      <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
 
-  <!-- 🔹 Peso Ideal -->
-  <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
+      <!-- 🔹 Peso Ideal -->
+      <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
 
-  <!-- 🔹 Calorias Ajustadas -->
-  <p><strong>Calorias Ajustadas:</strong> <span id="adjusted-calories">--</span> kcal</p>
+      <!-- 🔹 Calorias Ajustadas -->
+      <p><strong>Calorias Ajustadas:</strong> <span id="adjusted-calories">--</span> kcal</p>
 
-  <!-- 🔹 Resultados dos Macros -->
-  <div id="macros-result" style="margin-top: 20px;">
-    <h3>Macronutrientes</h3>
-    <ul>
-      <li>Proteínas: <span id="protein-result">--</span> g</li>
-      <li>Carboidratos: <span id="carbs-result">--</span> g</li>
-      <li>Gorduras: <span id="fats-result">--</span> g</li>
-    </ul>
-
-    <div class="chart-container">
-      <canvas id="pdfChart" width="400" height="400"></canvas>
+      <!-- 🔹 Resultados dos Macros -->
+    <div style="margin-top: 20px;">
+      <h3>Macronutrientes</h3>
+      <ul>
+        <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
+        <li>Carboidratos: <span id="pdf-carbs-result">--</span> g</li>
+        <li>Gorduras: <span id="pdf-fats-result">--</span> g</li>
+      </ul>
     </div>
 
-  </div>
-</div>
+        <!-- Container para o gráfico do PDF -->
+      <div class="chart-container" style="width: 300px; height: 300px; margin: 20px auto; page-break-inside: avoid;">
+        <!-- O gráfico será inserido aqui dinamicamente -->
+      </div>
+    </div>
 
 
-<button type="button" onclick="gerarPDF()" class="button">📄 Baixar PDF</button>
+    <button type="button" onclick="gerarPDF()" class="button">📄 Baixar PDF</button>
 
-  </main>
-  
+  </main>  
  <script src="script.js"></script>
 
 </body>

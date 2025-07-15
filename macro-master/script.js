@@ -154,98 +154,100 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
+    
+      //////////////////////////////////////////////////////PDF///////////////////////////////////////////////////////////////
+
+    //Preencher dados PDF
+    function preencherPDFCampos() {
+      const tdee = localStorage.getItem("tdee");
+      const weight = localStorage.getItem("weight");
+      const height = localStorage.getItem("height");
+      const adjustedCals = document.getElementById("adjusted-calories").textContent;
+
+      const heightMeters = height / 100;
+      const bmi = weight / (heightMeters ** 2);
+      const idealWeight = Math.round(22 * heightMeters ** 2);
+
+      // Classificação IMC
+          function getBmiClassification(bmi) {
+            if (bmi < 18.5) return "Abaixo do peso";
+            if (bmi < 24.9) return "Peso normal";
+            if (bmi < 29.9) return "Sobrepeso";
+            if (bmi < 34.9) return "Obesidade grau I";
+            if (bmi < 39.9) return "Obesidade grau II";
+            return "Obesidade grau III";
+          }
+
+      // Preenche todos os campos do PDF com os dados corretos
+      document.getElementById("pdf-tdee").textContent = tdee;
+      document.getElementById("pdf-bmi").textContent = bmi.toFixed(1);
+      document.getElementById("pdf-bmi-class").textContent = getBmiClassification(bmi);
+      document.getElementById("pdf-ideal-weight").textContent = idealWeight;
+      document.getElementById("pdf-adjusted-calories").textContent = adjustedCals;
+      
+      document.getElementById("pdf-protein-result").textContent = localStorage.getItem("macro_protein") || "--";
+      document.getElementById("pdf-carbs-result").textContent = localStorage.getItem("macro_carbs") || "--";
+      document.getElementById("pdf-fats-result").textContent = localStorage.getItem("macro_fats") || "--";
+    }
+
+    //Criar Gráfico para o PDF
+    function renderPDFChart() {
+      const container = document.querySelector("#pdf-content .chart-container");
+      container.innerHTML = ""; // Limpa gráfico anterior
+
+      const canvas = document.createElement("canvas");
+      canvas.id = "pdfChart";
+      canvas.width = 300;
+      canvas.height = 300;
+      container.appendChild(canvas);
+
+      const protein = parseInt(localStorage.getItem("macro_protein")) || 0;
+      const carbs = parseInt(localStorage.getItem("macro_carbs")) || 0;
+      const fats = parseInt(localStorage.getItem("macro_fats")) || 0;
+
+      new Chart(canvas.getContext("2d"), {
+        type: "doughnut",
+        data: {
+          labels: ["Proteínas", "Carboidratos", "Gorduras"],
+          datasets: [{
+            data: [protein, carbs, fats],
+            backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
+          }]
+        },
+        options: {
+          responsive: false,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: "bottom" }
+          }
+        }
+      });
+    }
+
+    // Função PDF
+    window.gerarPDF = function() {
+      preencherPDFCampos();
+      renderPDFChart();
+
+      // Esperar o gráfico ser renderizado antes de gerar o PDF
+      setTimeout(() => {
+        const pdfElement = document.getElementById("pdf-content");
+        pdfElement.style.display = "block"; // Garante que o conteúdo esteja visível
+
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: 'relatorio_macro_master.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+          })
+          .from(pdfElement)
+          .save()
+          .then(() => {
+            pdfElement.style.display = "none"; // Esconde após gerar
+          });
+      }, 1000); // Atraso para garantir que o Chart.js renderize o gráfico
+    };
   }
 });
-//////////////////////////////////////////////////////PDF///////////////////////////////////////////////////////////////
-
-
-// Clonar o gráfico dentro do container do PDF
-const originalCanvas = document.getElementById("macroChart");
-const cloneCanvas = originalCanvas.cloneNode(true);
-document.getElementById("pdf-content").querySelector(".chart-container").appendChild(cloneCanvas);
-
-
-//Preencher dados PDF
-function preencherPDFCampos() {
-  const tdee = localStorage.getItem("tdee");
-  const peso = localStorage.getItem("weight");
-  const altura = localStorage.getItem("height");
-
-  const alturaM = altura / 100;
-  const imc = peso / (alturaM ** 2);
-  const pesoIdeal = 22 * alturaM ** 2;
-
-  // Classificação IMC
-  function getBmiClass(imc) {
-    if (imc < 18.5) return "Abaixo do peso";
-    if (imc < 24.9) return "Peso normal";
-    if (imc < 29.9) return "Sobrepeso";
-    if (imc < 34.9) return "Obesidade grau I";
-    if (imc < 39.9) return "Obesidade grau II";
-    return "Obesidade grau III";
-  }
-
-  document.getElementById("pdf-tdee").textContent = tdee;
-  document.getElementById("pdf-bmi").textContent = imc.toFixed(1);
-  document.getElementById("pdf-bmi-class").textContent = getBmiClass(imc);
-  document.getElementById("pdf-ideal-weight").textContent = Math.round(pesoIdeal);
-
-  document.getElementById("protein-result").textContent = localStorage.getItem("macro_protein") || "--";
-  document.getElementById("carbs-result").textContent = localStorage.getItem("macro_carbs") || "--";
-  document.getElementById("fats-result").textContent = localStorage.getItem("macro_fats") || "--";
-}
-
-//Criar Gráfico para o PDF
-function renderPDFChart() {
-  const container = document.querySelector("#pdf-content .chart-container");
-  container.innerHTML = ""; // Limpa gráfico anterior
-
-  const canvas = document.createElement("canvas");
-  canvas.id = "pdfChart";
-  canvas.width = 300;
-  canvas.height = 300;
-  container.appendChild(canvas);
-
-  const protein = parseInt(localStorage.getItem("macro_protein")) || 0;
-  const carbs = parseInt(localStorage.getItem("macro_carbs")) || 0;
-  const fats = parseInt(localStorage.getItem("macro_fats")) || 0;
-
-  new Chart(canvas.getContext("2d"), {
-    type: "doughnut",
-    data: {
-      labels: ["Proteínas", "Carboidratos", "Gorduras"],
-      datasets: [{
-        data: [protein, carbs, fats],
-        backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
-      }]
-    },
-    options: {
-      responsive: false,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: "bottom" }
-      }
-    }
-  });
-}
-
-// Função PDF
-function gerarPDF() {
-  preencherPDFCampos();
-  renderPDFChart();
-
-  const elemento = document.getElementById("pdf-content");
-  setTimeout(() => {
-      html2pdf()
-        .set({
-          margin: 0.5,
-          filename: 'relatorio_macros.pdf',
-          image: { type: 'jpeg', quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-        })
-        .from(elemento)
-        .save();
-    }, 1500);
-  
-}
