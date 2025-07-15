@@ -9,11 +9,10 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-  :root {
-    --bg-url: url('assets/background22.jpg');
-  }
-</style>
-
+    :root {
+      --bg-url: url('assets/background22.jpg');
+    }
+  </style>
 </head>
 <body>
   <main class="container">
@@ -32,24 +31,22 @@
         <label for="adjustment">Ajuste (%): <span id="adjustment-value">0%</span></label>
         <input type="range" id="adjustment" min="-50" max="50" value="0" />
       </fieldset>
-    <p style="max-width:600px; margin: 0 auto 30px; color:#555; text-align:center; font-size:1em;">
-  Ajuste suas calorias para perder gordura, ganhar massa ou manter o peso.  
-  Valores negativos indicam déficit calórico; positivos, superávit.
-</p>
+      <p style="max-width:600px; margin: 0 auto 30px; color:#555; text-align:center; font-size:1em;">
+        Ajuste suas calorias para perder gordura, ganhar massa ou manter o peso.  
+        Valores negativos indicam déficit calórico; positivos, superávit.
+      </p>
       <button type="submit">Aplicar Ajuste</button>
     </form>
 
-  <section id="adjusted-section" class="highlight-box">
-  <h2>🔥 Calorias Ajustadas</h2>
-  <p class="adjusted-text">
-    Sua nova meta calórica, com base no ajuste percentual definido, é:
-  </p>
-  <p class="adjusted-value">
-    <span id="adjusted-calories">0</span> kcal
-  </p>
-</section>
-
-
+    <section id="adjusted-section" class="highlight-box">
+      <h2>🔥 Calorias Ajustadas</h2>
+      <p class="adjusted-text">
+        Sua nova meta calórica, com base no ajuste percentual definido, é:
+      </p>
+      <p class="adjusted-value">
+        <span id="adjusted-calories">0</span> kcal
+      </p>
+    </section>
 
     <form id="macros-form">
       <fieldset>
@@ -76,17 +73,22 @@
         <li>Gorduras: <span id="fats-result"></span> g</li>
       </ul>
 
-      <div class="chart-container">
+      <div class="chart-container" style="max-width: 400px; margin: 0 auto;">
         <canvas id="macroChart"></canvas>
       </div>
     </section>
 
-        <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
-    <!-- Geração do pdf -->
-    <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
+    <!-- Nova seção para mostrar a dieta personalizada -->
+    <section id="diet-plan" style="display:none;">
+      <h2>🍽️ Sugestão de Dieta</h2>
+      <div id="diet-content"></div>
+    </section>
 
-      <h1 style="text-align:center; color:#333; font-family:'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px;">
-      <span style="color:#2196f3;">Macro Master</span> 🧮
+    <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
+    <!-- Geração do pdf -->
+    <div id="pdf-content" style="display:none;">
+      <h1>
+        <span style="color:#2196f3;">Macro Master</span> 🧮
       </h1>
 
       <h2>📄 Relatório de Resultados</h2>
@@ -101,30 +103,35 @@
       <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
 
       <!-- 🔹 Calorias Ajustadas -->
-      <p><strong>Calorias Ajustadas:</strong> <span id="adjusted-calories">--</span> kcal</p>
+      <p><strong>Calorias Ajustadas:</strong> <span id="pdf-adjusted-calories">--</span> kcal</p>
 
       <!-- 🔹 Resultados dos Macros -->
-    <div style="margin-top: 20px;">
-      <h3>Macronutrientes</h3>
-      <ul>
-        <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
-        <li>Carboidratos: <span id="pdf-carbs-result">--</span> g</li>
-        <li>Gorduras: <span id="pdf-fats-result">--</span> g</li>
-      </ul>
-    </div>
+      <div style="margin-top: 20px;">
+        <h3>Macronutrientes</h3>
+        <ul>
+          <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
+          <li>Carboidratos: <span id="pdf-carbs-result">--</span> g</li>
+          <li>Gorduras: <span id="pdf-fats-result">--</span> g</li>
+        </ul>
+      </div>
 
-        <!-- Container para o gráfico do PDF -->
-      <div class="chart-container" style="width: 300px; height: 300px; margin: 20px auto; page-break-inside: avoid;">
+      <!-- Container para o gráfico do PDF -->
+      <div class="chart-container">
         <!-- O gráfico será inserido aqui dinamicamente -->
       </div>
+
+      <!-- Container para dieta no PDF -->
+      <section style="margin-top: 20px;">
+        <h3>Dieta Personalizada</h3>
+        <div id="pdf-diet-content" style="line-height: 1.4; font-size: 0.9em;"></div>
+      </section>
     </div>
 
-
-    <button type="button" onclick="gerarPDF()" class="button btn " style= "background-color: crimson;";">📄 Baixar PDF</button>
-
-  </main>  
- <script src="script.js"></script>
-
+    <button type="button" onclick="gerarPDF()" class="btn btn-danger">
+      📄 Baixar PDF
+    </button>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
 

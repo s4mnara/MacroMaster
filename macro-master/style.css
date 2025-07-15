@@ -120,7 +120,6 @@ input[type="range"] {
   font-size: 1em;
   box-sizing: border-box;
 }
-
 button, .btn {
   background-color: #20B2AA;
   color: white;
@@ -137,6 +136,17 @@ button, .btn {
 
 button:hover, .btn:hover {
   background-color: #1A8F87;
+}
+
+
+/* Classe especial para botão vermelho */
+.btn-danger {
+  background-color: crimson;
+
+}
+
+.btn-danger:hover {
+  background-color: darkred;
 }
 
 /* Resultados */
@@ -229,4 +239,104 @@ button:hover, .btn:hover {
   margin: 0 auto;
   page-break-inside: avoid;
 }
+
+/* Variável para background */
+:root {
+  --bg-url: url('assets/background22.jpg');
+}
+
+/* Container do PDF */
+#pdf-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: none;
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+/* Título do PDF */
+#pdf-content h1 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Container do gráfico no PDF */
+#pdf-content .chart-container {
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  page-break-inside: avoid;
+}
+
+/* Container da dieta no PDF */
+#pdf-content section {
+  margin-top: 20px;
+  line-height: 1.4;
+  font-size: 0.9em;
+  color: #333;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Seção da dieta na página principal */
+#diet-plan {
+  margin: 80px auto 60px;          /* Mais espaçamento acima e abaixo */
+  padding: 30px;
+  max-width: 700px;
+  width: 90%;
+  background-color: #ffffff;
+  border: 2px solid #20B2AA;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+#diet-plan h2 {
+  color: #20B2AA;
+  margin-bottom: 20px;
+  font-size: 2em;
+  
+}
+
+#diet-content {
+  background-color: #f0fdfd;
+  padding: 20px 25px;
+  padding-left: 30px; 
+  border-radius: 8px;
+  text-align: left;
+  font-size: 1.1em;
+  line-height: 1.8;
+  border-left: 4px solid #20B2AA;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom: 20px;
+  color: #333;
+}
+
+
+#diet-plan button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  font-size: 1.05em;
+  background-color: #20B2AA;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;
+}
+
+#diet-plan button:hover {
+  background-color: #1a8f87;
+}
+
+
 
