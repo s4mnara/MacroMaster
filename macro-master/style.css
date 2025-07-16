@@ -120,7 +120,6 @@ input[type="range"] {
   font-size: 1em;
   box-sizing: border-box;
 }
-
 button, .btn {
   background-color: #20B2AA;
   color: white;
@@ -137,6 +136,23 @@ button, .btn {
 
 button:hover, .btn:hover {
   background-color: #1A8F87;
+}
+
+
+/* Classe especial para botão vermelho */
+.btn-danger {
+ background-color: crimson;
+  width: 400px;         /* largura mínima suficiente para o conteúdo */
+  padding: 14px 32px;         /* mais espaço interno */
+  margin: 24px auto;          /* centraliza */
+  display: block;
+  font-size: 1.1em;           /* garante tamanho da fonte */
+  border-radius: 8px; 
+
+}
+
+.btn-danger:hover {
+  background-color: darkred;
 }
 
 /* Resultados */
@@ -244,5 +260,4 @@ button:hover, .btn:hover {
   overflow: auto;
   padding: 20px;
 }
-
 
