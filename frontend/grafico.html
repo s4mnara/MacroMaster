@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - MacroMaster</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Gráfico de Evolução</h2>
+    <canvas id="grafico" width="400" height="200"></canvas>
+
+    <script>
+        const userId = localStorage.getItem("userId");
+        fetch(`http://localhost:3000/api/users/historico/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+            const datas = data.map(r => r.data_registro);
+            const resultados = data.map(r => r.resultado);
+
+            new Chart(document.getElementById("grafico"), {
+                type: "line",
+                data: {
+                    labels: datas,
+                    datasets: [{
+                        label: "Resultado",
+                        data: resultados,
+                        borderColor: "blue",
+                        fill: false
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>

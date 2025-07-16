@@ -83,6 +83,7 @@
 
         <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
     <!-- Geração do pdf -->
+     
     <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
 
       <h1 style="text-align:center; color:#333; font-family:'Roboto', sans-serif; font-size: 28px; margin-bottom: 20px;">
@@ -91,20 +92,15 @@
 
       <h2>📄 Relatório de Resultados</h2>
 
-      <!-- 🔹 TDEE -->
-      <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+        <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
 
-      <!-- 🔹 IMC -->
-      <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
+        <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
 
-      <!-- 🔹 Peso Ideal -->
-      <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
+        <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
 
-      <!-- 🔹 Calorias Ajustadas -->
-      <p><strong>Calorias Ajustadas:</strong> <span id="adjusted-calories">--</span> kcal</p>
+        <p><strong>Calorias Ajustadas:</strong> <span id="pdf-adjusted-calories">--</span> kcal</p>
 
-      <!-- 🔹 Resultados dos Macros -->
-    <div style="margin-top: 20px;">
+      <div style="margin-top: 20px;">
       <h3>Macronutrientes</h3>
       <ul>
         <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
@@ -113,18 +109,14 @@
       </ul>
     </div>
 
-        <!-- Container para o gráfico do PDF -->
-      <div class="chart-container" style="width: 300px; height: 300px; margin: 20px auto; page-break-inside: avoid;">
-        <!-- O gráfico será inserido aqui dinamicamente -->
-      </div>
-    </div>
-
-
-    <button type="button" onclick="gerarPDF()" class="button">📄 Baixar PDF</button>
+       </div>
+    
+    <!-- Essa praga de botão DEVIA gerar um PDF, DEVIA!! :) -->
+    <button type="button" id= "download-pdf-btn" onclick="gerarPDF()" class="button" style="display: none;">📄 Baixar PDF</button>
 
   </main>  
- <script src="script.js"></script>
-
+ 
+ <script src="script.js" defer></script>
 </body>
 </html>
 

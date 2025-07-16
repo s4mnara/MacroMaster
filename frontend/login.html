@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - MacroMaster</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        input, button { display: block; margin: 10px 0; padding: 8px; }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Senha">
+    <button onclick="criarUsuario()">Criar Usuário</button>
+
+    <script>
+        function criarUsuario() {
+            const nome = document.getElementById("nome").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+
+            fetch("http://localhost:3000/api/users/criar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, email, senha })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Usuário criado! ID: " + data.id);
+                localStorage.setItem("userId", data.id);
+                window.location.href = "dashboard.html";
+            })
+            .catch(err => alert("Erro ao criar usuário."));
+        }
+    </script>
+</body>
+</html>

@@ -77,6 +77,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const goalForm = document.getElementById("goal-form");
     const macrosForm = document.getElementById("macros-form");
 
+    //referência para o botao gerar PDF
+    const downloadPdfBtn = document.getElementById("download-pdf-btn");
+
     // Inicializa valor do ajuste e das calorias ajustadas
     adjustmentValue.textContent = `${adjustmentInput.value}%`;
     document.getElementById("adjusted-calories").textContent = adjustedCalories;
@@ -153,101 +156,112 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
       });
+          //torna o botao gerar PDF visivel 
+          if (downloadPdfBtn) {
+            downloadPdfBtn.style.display = "inline-block";
+          }
     }
-    
+
       //////////////////////////////////////////////////////PDF///////////////////////////////////////////////////////////////
 
-    //Preencher dados PDF
-    function preencherPDFCampos() {
-      const tdee = localStorage.getItem("tdee");
-      const weight = localStorage.getItem("weight");
-      const height = localStorage.getItem("height");
-      const adjustedCals = document.getElementById("adjusted-calories").textContent;
+      //Preencher dados PDF
+      function preencherPDFCampos() {
+        const tdee = localStorage.getItem("tdee");
+        const weight = localStorage.getItem("weight");
+        const height = localStorage.getItem("height");
+        const adjustedCals = document.getElementById("adjusted-calories").textContent;
 
-      const heightMeters = height / 100;
-      const bmi = weight / (heightMeters ** 2);
-      const idealWeight = Math.round(22 * heightMeters ** 2);
+        const heightMeters = height / 100;
+        const bmi = weight / (heightMeters ** 2);
+        const idealWeight = Math.round(22 * heightMeters ** 2);
 
-      // Classificação IMC
-          function getBmiClassification(bmi) {
-            if (bmi < 18.5) return "Abaixo do peso";
-            if (bmi < 24.9) return "Peso normal";
-            if (bmi < 29.9) return "Sobrepeso";
-            if (bmi < 34.9) return "Obesidade grau I";
-            if (bmi < 39.9) return "Obesidade grau II";
-            return "Obesidade grau III";
+        // Classificação IMC
+            function getBmiClassification(bmi) {
+              if (bmi < 18.5) return "Abaixo do peso";
+              if (bmi < 24.9) return "Peso normal";
+              if (bmi < 29.9) return "Sobrepeso";
+              if (bmi < 34.9) return "Obesidade grau I";
+              if (bmi < 39.9) return "Obesidade grau II";
+              return "Obesidade grau III";
+            }
+
+        // Preenche todos os campos do PDF com os dados corretos
+        document.getElementById("pdf-tdee").textContent = tdee;
+        document.getElementById("pdf-bmi").textContent = bmi.toFixed(1);
+        document.getElementById("pdf-bmi-class").textContent = getBmiClassification(bmi);
+        document.getElementById("pdf-ideal-weight").textContent = idealWeight;
+        document.getElementById("pdf-adjusted-calories").textContent = adjustedCals;
+        
+        document.getElementById("pdf-protein-result").textContent = localStorage.getItem("macro_protein") || "--";
+        document.getElementById("pdf-carbs-result").textContent = localStorage.getItem("macro_carbs") || "--";
+        document.getElementById("pdf-fats-result").textContent = localStorage.getItem("macro_fats") || "--";
+      }
+
+      //Criar Gráfico para o PDF
+      function renderPDFChart() {
+        const container = document.querySelector("#pdf-content .chart-container");
+        container.innerHTML = ""; // Limpa gráfico anterior
+
+        const canvas = document.createElement("canvas");
+        canvas.id = "pdfChart";
+        canvas.width = 300;
+        canvas.height = 300;
+        container.appendChild(canvas);
+
+        const protein = parseInt(localStorage.getItem("macro_protein")) || 0;
+        const carbs = parseInt(localStorage.getItem("macro_carbs")) || 0;
+        const fats = parseInt(localStorage.getItem("macro_fats")) || 0;
+
+        new Chart(canvas.getContext("2d"), {
+          type: "doughnut",
+          data: {
+            labels: ["Proteínas", "Carboidratos", "Gorduras"],
+            datasets: [{
+              data: [protein, carbs, fats],
+              backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: "bottom" }
+            }
           }
+        });
+      }
 
-      // Preenche todos os campos do PDF com os dados corretos
-      document.getElementById("pdf-tdee").textContent = tdee;
-      document.getElementById("pdf-bmi").textContent = bmi.toFixed(1);
-      document.getElementById("pdf-bmi-class").textContent = getBmiClassification(bmi);
-      document.getElementById("pdf-ideal-weight").textContent = idealWeight;
-      document.getElementById("pdf-adjusted-calories").textContent = adjustedCals;
-      
-      document.getElementById("pdf-protein-result").textContent = localStorage.getItem("macro_protein") || "--";
-      document.getElementById("pdf-carbs-result").textContent = localStorage.getItem("macro_carbs") || "--";
-      document.getElementById("pdf-fats-result").textContent = localStorage.getItem("macro_fats") || "--";
-    }
 
-    //Criar Gráfico para o PDF
-    function renderPDFChart() {
-      const container = document.querySelector("#pdf-content .chart-container");
-      container.innerHTML = ""; // Limpa gráfico anterior
-
-      const canvas = document.createElement("canvas");
-      canvas.id = "pdfChart";
-      canvas.width = 300;
-      canvas.height = 300;
-      container.appendChild(canvas);
-
-      const protein = parseInt(localStorage.getItem("macro_protein")) || 0;
-      const carbs = parseInt(localStorage.getItem("macro_carbs")) || 0;
-      const fats = parseInt(localStorage.getItem("macro_fats")) || 0;
-
-      new Chart(canvas.getContext("2d"), {
-        type: "doughnut",
-        data: {
-          labels: ["Proteínas", "Carboidratos", "Gorduras"],
-          datasets: [{
-            data: [protein, carbs, fats],
-            backgroundColor: ["#4caf50", "#2196f3", "#ff9800"]
-          }]
-        },
-        options: {
-          responsive: false,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: "bottom" }
-          }
-        }
-      });
-    }
-
-    // Função PDF
-    window.gerarPDF = function() {
+      //Gerando o pdf
+          window.gerarPDF = function() {
+          const pdfElement = document.getElementById("pdf-content");
       preencherPDFCampos();
-      renderPDFChart();
+      pdfElement.style.display = "block"
 
-      // Esperar o gráfico ser renderizado antes de gerar o PDF
-      setTimeout(() => {
-        const pdfElement = document.getElementById("pdf-content");
-        pdfElement.style.display = "block"; // Garante que o conteúdo esteja visível
+      if (!pdfElement) {
+        alert("Elemento #pdf-content não encontrado!");
+        return;
+      }
+          requestAnimationFrame(() => {
+        setTimeout(() => {
+          html2pdf()
+            .set({
+              margin: 0.5,
+              filename: 'relatorio_macro_master.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            })
+            .from(pdfElement)
+            .save()
+            .then(() => {
+              pdfElement.style.display = "none"; // esconde depois
+            });
+        }, 1000);
+      });
 
-        html2pdf()
-          .set({
-            margin: 0.5,
-            filename: 'relatorio_macro_master.pdf',
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-          })
-          .from(pdfElement)
-          .save()
-          .then(() => {
-            pdfElement.style.display = "none"; // Esconde após gerar
-          });
-      }, 1000); // Atraso para garantir que o Chart.js renderize o gráfico
-    };
+   };
+
   }
 });
+

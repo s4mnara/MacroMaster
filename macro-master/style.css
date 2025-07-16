@@ -224,9 +224,25 @@ button:hover, .btn:hover {
 }
 
 #pdf-content .chart-container {
-  width: 300px;
+  /*width: 300px;
   height: 300px;
   margin: 0 auto;
-  page-break-inside: avoid;
+  page-break-inside: avoid;*/
+   display: block !important; /* TEMPORÁRIO para teste */
+  background: white;
+  padding: 20px;
 }
+
+#print-area-debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background: white;
+  width: 100vw;
+  height: auto;
+  overflow: auto;
+  padding: 20px;
+}
+
 
