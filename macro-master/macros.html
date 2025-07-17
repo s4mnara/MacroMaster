@@ -81,61 +81,112 @@
         <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
     <!-- Geração do pdf -->
      
-    <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
+    <!--<div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">-->
 
     <!-- //////////////////////////////////////////////////////PDF////////////////////////////////////////////////////////////////-->
     <!-- Geração do pdf -->
-      <h1>
-        <span style="color:#2196f3;">Macro Master</span> 🧮
-      </h1>
 
+
+
+        <!-- Geração do pdf -->
+    <!--<div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
+      <h1><span style="color:#2196f3;">Macro Master</span> 🧮</h1>
       <h2>📄 Relatório de Resultados</h2>
 
-        <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+      <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+      <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
+      <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
+      <p><strong>Calorias Ajustadas:</strong> <span id="pdf-adjusted-calories">--</span> kcal</p>
 
-        <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
-
-        <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
-
-        <p><strong>Calorias Ajustadas:</strong> <span id="pdf-adjusted-calories">--</span> kcal</p>
-
-      <div style="margin-top: 20px;">
       <h3>Macronutrientes</h3>
       <ul>
         <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
         <li>Carboidratos: <span id="pdf-carbs-result">--</span> g</li>
         <li>Gorduras: <span id="pdf-fats-result">--</span> g</li>
       </ul>
-          <!-- Nova seção para mostrar a dieta personalizada -->
-        <section id="diet-plan" style="display:none;">
-          <h2>🍽️ Sugestão de Dieta</h2>
-          <div id="diet-content"></div>
-    </section>
-    </div>
 
-       </div>
-    
-   
+      <section id="diet-plan" style="display:block;">
+        <h2>🍽️ Sugestão de Dieta</h2>
+        <div id="diet-content"></div>
+      </section>
 
-      <!-- Container para o gráfico do PDF -->
-      <div class="chart-container">
-        <!-- O gráfico será inserido aqui dinamicamente -->
-      </div>
-
-      <!-- Container para dieta no PDF -->
       <section style="margin-top: 20px;">
         <h3>Dieta Personalizada</h3>
         <div id="pdf-diet-content" style="line-height: 1.4; font-size: 0.9em;"></div>
       </section>
+    </div>-->
+<!-- Geração do pdf -->
+     
+    <div id="pdf-content" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); display: none;">
+
+      <h1>
+          <span style="color:#2196f3;">Macro Master</span> 🧮
+        </h1>
+
+        <h2>📄 Relatório de Resultados</h2>
+
+          <p><strong>TDEE (Gasto Energético Total):</strong> <span id="pdf-tdee">--</span> kcal</p>
+
+          <p><strong>IMC:</strong> <span id="pdf-bmi">--</span> - <span id="pdf-bmi-class">--</span></p>
+
+          <p><strong>Peso Ideal:</strong> <span id="pdf-ideal-weight">--</span> kg</p>
+
+          <p><strong>Calorias Ajustadas:</strong> <span id="pdf-adjusted-calories">--</span> kcal</p>
+
+        <div style="margin-top: 20px;">
+            <h3>Macronutrientes</h3>
+            <ul>
+              <li>Proteínas: <span id="pdf-protein-result">--</span> g</li>
+              <li>Carboidratos: <span id="pdf-carbs-result">--</span> g</li>
+              <li>Gorduras: <span id="pdf-fats-result">--</span> g</li>
+            </ul>
+                <!-- Nova seção para mostrar a dieta personalizada -->
+              <section id="diet-plan" style="display:none;">
+                <h2>🍽️ Sugestão de Dieta</h2>
+                <div id="diet-content"></div>
+          </section>
+      </div>
+
+    </div>
+      
+    
+
+        <!-- Container para o gráfico do PDF -->
+        <div class="chart-container">
+          <!-- O gráfico será inserido aqui dinamicamente -->
+        </div>
+
+        <!-- Container para dieta no PDF -->
+        <section style="margin-top: 20px;">
+          <h3>Dieta Personalizada</h3>
+          <div id="pdf-diet-content" style="line-height: 1.4; font-size: 0.9em;"></div>
+        </section>
     </div>
 
-     <!-- Essa praga de botão DEVIA gerar um PDF, DEVIA!! :) -->
-    <button type="button" id= "download-pdf-btn" onclick="gerarPDF()" class="button" style="display: none;">📄 Baixar PDF</button>
+
+    <!-- Botão PDF -->
+    <button type="button" id="download-pdf-btn" onclick="gerarPDF()" class="button" style="display: none;">📄 Baixar PDF</button>
+
+
+
+    
+      
+    
   </main>
+
+
+
+
+
+
+
 
       <!-- Bibliotecas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>-->
+
   
   <script src="script.js"></script>
 </body>

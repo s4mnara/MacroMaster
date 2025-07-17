@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const isIndexPage = !!document.getElementById("health-form");
   const isMacrosPage = !!document.getElementById("goal-form");
-
   if (isIndexPage) {
     // Página 1: coleta dados e calcula TDEE/IMC
     const healthForm = document.getElementById("health-form");
@@ -60,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "macros.html";
     });
   }
-
   if (isMacrosPage) {
     // Página 2: metas e macros
     let tdee = +localStorage.getItem("tdee") || 0;
@@ -316,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
       dietaContainer.innerHTML = dietaHTML;
     }
 
-
+////////////////gerar  PDF////////////////////////////
             window.gerarPDF = async function () {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
@@ -337,21 +335,58 @@ document.addEventListener("DOMContentLoaded", function () {
       // Cabeçalho
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("Macro Master 🧮", 20, 20);
+      doc.text("Macro Master ", 20, 20);
 
       doc.setFontSize(12);
       doc.setFont("helvetica", "normal");
-      doc.text("📄 Relatório de Resultados", 20, 30);
+      doc.text(" Relatório de Resultados", 20, 30);
 
       doc.text(`TDEE (Gasto Energético Total): ${tdee} kcal`, 20, 40);
       doc.text(`IMC: ${bmi.toFixed(1)} - ${bmiClass}`, 20, 50);
       doc.text(`Peso Ideal: ${idealWeight} kg`, 20, 60);
       doc.text(`Calorias Ajustadas: ${adjustedCals} kcal`, 20, 70);
 
-      doc.text("📈 Macronutrientes", 20, 85);
+      doc.text(" Macronutrientes", 20, 85);
       doc.text(`Proteínas: ${protein} g`, 20, 95);
       doc.text(`Carboidratos: ${carbs} g`, 20, 105);
       doc.text(`Gorduras: ${fats} g`, 20, 115);
+
+          // Gerar dieta personalizada
+        const proteinGrams = parseInt(protein) || 0;
+        const carbsGrams = parseInt(carbs) || 0;
+        const fatsGrams = parseInt(fats) || 0;
+
+        const dietaHTML = gerarDietaPersonalizada(proteinGrams, carbsGrams, fatsGrams);
+
+        // Remove tags HTML e quebra em linhas
+        const dietaTexto = dietaHTML
+          .replace(/<\/?(br|div|section|p)[^>]*>/gi, "\n") // br/div → quebra de linha
+          .replace(/<[^>]*>/g, "")                         // remove outras tags
+          .replace(/\n{2,}/g, "\n")        // remove espaços repetidos
+          .trim()
+          .split(/(?=Café da manhã|Lanche|Almoço|Jantar|Ceia)/); // separa por refeições
+
+        let y = 130;
+        doc.setFont("helvetica", "bold");
+        doc.text(" Dieta personalizada", 20, y);
+        doc.setFont("helvetica", "normal");
+
+        y += 10;
+        dietaTexto.forEach((linha, index) => {
+          const linhas = doc.splitTextToSize(linha, 170); // quebra automática em linhas
+          doc.text( linhas, 20, y);
+          y += linhas.length * 7;
+
+          // Se passar do fim da página
+          if (y > 270) {
+            doc.addPage();
+            y = 20;
+          }
+        });
+
+
+
+
 
       doc.save("relatorio_macro_master.pdf");
 
@@ -365,6 +400,60 @@ document.addEventListener("DOMContentLoaded", function () {
         return "Obesidade grau III";
       }
     };
+
+
+
+             /* window.gerarPDF = function () {
+        preencherPDFCampos();
+
+        const originalPDF = document.getElementById("pdf-content");
+
+        if (!originalPDF) {
+          alert("Elemento #pdf-content não encontrado!");
+          return;
+        }
+
+        // Clona o conteúdo do PDF
+        const tempPDF = originalPDF.cloneNode(true);
+        tempPDF.style.position = "fixed";
+        tempPDF.style.top = "0";
+        tempPDF.style.left = "0";
+        tempPDF.style.zIndex = "9999";
+        tempPDF.style.width = "800px";
+        tempPDF.style.background = "white";
+        tempPDF.style.padding = "20px";
+        tempPDF.style.display = "block";
+        tempPDF.id = "pdf-temp"; // novo ID só pra teste
+
+        // Adiciona ao body temporariamente
+        document.body.appendChild(tempPDF);
+
+        // Espera layout aplicar
+        setTimeout(() => {
+          html2pdf()
+            .set({
+              margin: 0.5,
+              filename: 'relatorio_macro_master.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2 ,useCORS: true},
+              jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            })
+            .from(tempPDF)
+            .save()
+            .then(() => {
+              tempPDF.style.display = "none";
+              tempPDF.remove(); // remove o clone depois
+            })
+            .catch((err) => {
+              console.error("Erro ao gerar PDF:", err);
+              alert("Erro ao gerar o PDF. Veja o console.");
+              tempPDF.remove();
+            });
+        }, 1000); // tempo pro layout se aplicar
+        
+
+      };*/
+
 
 
      
