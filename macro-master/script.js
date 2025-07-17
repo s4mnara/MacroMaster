@@ -358,26 +358,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const dietaHTML = gerarDietaPersonalizada(proteinGrams, carbsGrams, fatsGrams);
 
-        // Remove tags HTML e quebra em linhas
-        const dietaTexto = dietaHTML
-          .replace(/<\/?(br|div|section|p)[^>]*>/gi, "\n") // br/div → quebra de linha
-          .replace(/<[^>]*>/g, "")                         // remove outras tags
-          .replace(/\n{2,}/g, "\n")        // remove espaços repetidos
-          .trim()
-          .split(/(?=Café da manhã|Lanche|Almoço|Jantar|Ceia)/); // separa por refeições
+        let dietaTexto = dietaHTML
+          .replace(/<\/?(br|div|section|p|h3)[^>]*>/gi, "\n")
+          .replace(/<[^>]*>/g, "")
+          .replace(/\n{2,}/g, "\n")
+          .trim();
 
+        // Insere quebra de linha onde palavras grudadas (minúscula + maiúscula)
+        dietaTexto = dietaTexto.replace(/([a-z0-9\)])([A-Z])/g, '$1\n$2');
+
+        // Separa por refeições para controlar melhor quebras
+        const dietaLinhas = dietaTexto.split(/(?=Café da manhã|Lanche|Almoço|Jantar|Ceia)/);
+
+        // Agora insira no PDF:
         let y = 130;
         doc.setFont("helvetica", "bold");
         doc.text(" Dieta personalizada", 20, y);
         doc.setFont("helvetica", "normal");
-
         y += 10;
-        dietaTexto.forEach((linha, index) => {
-          const linhas = doc.splitTextToSize(linha, 170); // quebra automática em linhas
-          doc.text( linhas, 20, y);
-          y += linhas.length * 7;
 
-          // Se passar do fim da página
+        dietaLinhas.forEach((linha) => {
+          const linhasQuebradas = doc.splitTextToSize(linha, 170);
+          doc.text(linhasQuebradas, 20, y);
+          y += linhasQuebradas.length * 8;
           if (y > 270) {
             doc.addPage();
             y = 20;
@@ -403,56 +406,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-             /* window.gerarPDF = function () {
-        preencherPDFCampos();
-
-        const originalPDF = document.getElementById("pdf-content");
-
-        if (!originalPDF) {
-          alert("Elemento #pdf-content não encontrado!");
-          return;
-        }
-
-        // Clona o conteúdo do PDF
-        const tempPDF = originalPDF.cloneNode(true);
-        tempPDF.style.position = "fixed";
-        tempPDF.style.top = "0";
-        tempPDF.style.left = "0";
-        tempPDF.style.zIndex = "9999";
-        tempPDF.style.width = "800px";
-        tempPDF.style.background = "white";
-        tempPDF.style.padding = "20px";
-        tempPDF.style.display = "block";
-        tempPDF.id = "pdf-temp"; // novo ID só pra teste
-
-        // Adiciona ao body temporariamente
-        document.body.appendChild(tempPDF);
-
-        // Espera layout aplicar
-        setTimeout(() => {
-          html2pdf()
-            .set({
-              margin: 0.5,
-              filename: 'relatorio_macro_master.pdf',
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2 ,useCORS: true},
-              jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-            })
-            .from(tempPDF)
-            .save()
-            .then(() => {
-              tempPDF.style.display = "none";
-              tempPDF.remove(); // remove o clone depois
-            })
-            .catch((err) => {
-              console.error("Erro ao gerar PDF:", err);
-              alert("Erro ao gerar o PDF. Veja o console.");
-              tempPDF.remove();
-            });
-        }, 1000); // tempo pro layout se aplicar
-        
-
-      };*/
 
 
 

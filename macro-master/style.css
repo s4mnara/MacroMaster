@@ -260,6 +260,70 @@ button:hover, .btn:hover {
   overflow: auto;
   padding: 20px;
 }
+#diet-plan {
+  background-color: #f9f9f9;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 30px auto;
+  margin-top: 30px;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  display: none; /* Só aparece depois do cálculo */
+}
+
+#diet-plan h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+#diet-content p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#diet-content h3 {
+  font-size: 20px;
+  margin-top: 25px;
+  color: #444;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+#diet-content ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#diet-content li {
+  font-size: 16px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  #diet-plan {
+    padding: 15px;
+  }
+
+  #diet-content p,
+  #diet-content h3,
+  #diet-content li {
+    font-size: 15px;
+  }
+
+  #diet-plan h2 {
+    font-size: 20px;
+  }
+}
 
 
 /*#pdf-temp {
