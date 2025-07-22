@@ -16,15 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
       const height = +document.getElementById("height").value;
       const activity = +document.getElementById("activity").value;
 
+      //Calculo da Taxa metabólica basal
       const bmr = sex === "male"
         ? 10 * weight + 6.25 * height - 5 * age + 5
         : 10 * weight + 6.25 * height - 5 * age - 161;
 
       const tdee = Math.round(bmr * activity);
 
+      //De Cm para M
       const heightMeters = height / 100;
+      //Calculo IMC
       const bmi = weight / (heightMeters ** 2);
       const bmiClass = getBmiClassification(bmi);
+      //Peso Ideal
       const idealWeight = Math.round(22 * heightMeters ** 2);
 
       // Mostra resultados na página
